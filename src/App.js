@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function Square({value, onSquareClick}) {
   return(
-    <button className="square" onclick={onSquareClick}>{value}</button>
+    <button className="square" onClick={onSquareClick}>{value}</button>
   );
 }
 
@@ -10,7 +10,7 @@ export default function Board() {
 
   function handleClick(squareIndex) {
     //if the square tile has already been clicked, short circuit
-    if (squareIndex || calculateWinner(squares)) return;
+    if (squares[squareIndex] || calculateWinner(squares)) return;
 
     const newSquares = squares.slice();
     newSquares[squareIndex] = xIsNext ? "X" : "O";
@@ -23,10 +23,12 @@ export default function Board() {
   const winner = calculateWinner(squares);
 
   let status;
-  if (winner) {
-    status = "Winner: " + winner;
+  if (winner === true) {
+    status = "TIE!!!!";
+  } else if (!winner) {
+    status = "Next player: " + (xIsNext ? "X" : "O");
   } else {
-      status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Winner: " + winner;
   }
   return (
     <>
@@ -67,5 +69,6 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
-  return null;
+  const isTie = squares.every(element => element != null);
+  return isTie ? isTie : null;
 }
