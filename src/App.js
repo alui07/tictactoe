@@ -7,12 +7,20 @@ function Square({value, onSquareClick}) {
 }
 
 export default function Board() {
+
   function handleClick(squareIndex) {
+    //if the square tile has already been clicked, short circuit
+    if (squareIndex) return;
+
     const newSquares = squares.slice();
-    newSquares[squareIndex] = "O"
+    newSquares[squareIndex] = xIsNext ? "X" : "O";
     setSquares(newSquares);
+    setXIsNext(!xIsNext);
   }
+
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+  
   return (
     <>
       <div className="board-row">
