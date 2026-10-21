@@ -56,7 +56,7 @@ export default function Game() {
     setXIsNext(!xIsNext);
   }
   const [xIsNext, setXIsNext] = useState(true);
-  const [history, setHistory] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([Array(9).fill(null)]);
   const currentSquares = history[history.length - 1];
   
   return (
